@@ -59,6 +59,9 @@ create_env() {
   create_default_env
 }
 
+
+header "Creating runtime environment"
+
 header "Creating runtime environment"
 create_env # can't indent the whole thing because piping causes subshells; no exporting possible
 list_node_config | indent
@@ -89,6 +92,12 @@ install_bins() {
 
 header "Installing binaries"
 install_bins | indent
+
+echo "Installing Homebrew"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+echo "Installing Tesseract"
+brew install tesseract --all-languages
 
 restore_cache() {
   local cache_status=$(get_cache_status)
